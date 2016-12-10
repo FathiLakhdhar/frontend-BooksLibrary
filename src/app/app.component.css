@@ -1,0 +1,37 @@
+.logo{
+    width: 150px;
+}
+
+md-toolbar.bg-white{
+    background-color: #FFFFFF;
+    box-shadow: 1px 2px 3px #888888;
+}
+
+[md-button]:hover::after, [md-icon-button]:hover::after {
+    background-color: transparent;
+}
+
+md-sidenav {
+  width: 200px;
+}
+
+.g-input-search{
+    position: relative;
+}
+.g-input-search>md-icon{
+    position: absolute;
+    top: 16px;
+}
+.g-input-search>md-input{
+    text-indent: 20px;
+
+}
+
+md-sidenav-layout{
+    width: 100%;
+}
+md-sidenav-layout{
+    position: fixed;
+    height: 92%;
+}
+

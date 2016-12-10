@@ -1,3 +1,81 @@
-<h1>
-  {{title}}
-</h1>
+<md-toolbar class="bg-white">
+	<img class="logo" src="../assets/img/logo.png" alt="BooksLibrary" />
+	<span style="margin-left:20px"></span>
+	<button md-icon-button class="btn-menu" (click)="sidenav_start.toggle()">
+    <md-icon class="md-24">menu</md-icon>
+  </button>
+	<span style="margin-left:20px"></span>
+	<div class="g-input-search">
+		<md-icon class="md-24">search</md-icon>
+		<md-input type="text" name="search" placeholder="Search"></md-input>
+	</div>
+
+</md-toolbar>
+
+<md-sidenav-layout>
+	<md-sidenav #sidenav_start>
+
+		<nav class="bib-nav">
+			<ul class="">
+
+				<li>
+					<item-menu bib-nav-icon="dashboard" bib-nav-label="Dashboard" routerLink="/pages/dashboard" routerLinkActive="active">
+					</item-menu>
+				</li>
+				<li>
+					<item-menu bib-nav-icon="search" bib-nav-label="Search" routerLink="/pages/search" routerLinkActive="active">
+					</item-menu>
+				</li>
+
+
+				<li class="">
+					<item-menu bib-nav-icon="book" bib-nav-label="Books">
+						<ul class="bib-menu">
+							<li>
+								<a routerLink="/pages/book/add"  routerLinkActive="active">ADD </a>
+								<md-icon class="md-24">add</md-icon>
+							</li>
+							<li>
+								<a href="">ADD </a>
+								<md-icon class="md-24">add</md-icon>
+							</li>
+						</ul>
+					</item-menu>
+				</li>
+				<li>
+					<item-menu bib-nav-icon="art_track" bib-nav-label="News" routerLinkActive="active">
+
+					</item-menu>
+				</li>
+
+				<!-- Edition-->
+				<li>
+					<item-menu bib-nav-icon="business" bib-nav-label="Edition" routerLink="/pages/edition" routerLinkActive="active">
+					</item-menu>
+				</li>
+
+				<!-- Author -->
+				<li>
+					<item-menu bib-nav-icon="mode_edit" bib-nav-label="Author" routerLink="/pages/author" routerLinkActive="active">
+					</item-menu>
+				</li>
+
+				<!-- language -->
+				<li>
+					<item-menu bib-nav-icon="translate" bib-nav-label="language" routerLink="/pages/language" routerLinkActive="active">
+					</item-menu>
+				</li>
+
+			</ul>
+		</nav>
+
+
+	</md-sidenav>
+
+<section class="container">
+	<router-outlet></router-outlet>
+</section>
+
+
+
+</md-sidenav-layout>

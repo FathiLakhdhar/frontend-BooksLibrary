@@ -1,0 +1,106 @@
+<section class="container">
+  <div class="col-lg-5">
+    <h3>
+      Authors
+      <md-input [(ngModel)]="find"></md-input>{{find}}
+    </h3>
+
+
+
+    <section class="row">
+
+
+      <div class="col-lg-12" *ngFor="let author of authors3 " style="margin-bottom: 20px;">
+
+        <md-card>
+          <md-card-header>
+            <img md-card-avatar src="../../assets/img/p.jpg">
+            <md-card-title>
+              <input type="text" [(ngModel)]="author.prenom" #inputEditPrenon="ngModel" maxlength="20" minlength="3" required="required"
+                style="background: transparent;border: none;" />
+              <p>
+                <span class="bib-form-valid-error" *ngIf="inputEditPrenon.errors?.required && inputEditPrenon.touched">please enter a firstname</span>
+                <span class="bib-form-valid-error" *ngIf="inputEditPrenon.errors?.minlength && inputEditPrenon.touched">Invalid firstname minlength </span>
+                <span class="bib-form-valid-error" *ngIf="inputEditPrenon.errors?.maxlength && inputEditPrenon.touched">Invalid firstname maxlength </span>
+              </p>
+            </md-card-title>
+            <md-card-subtitle>
+              <input type="text" [(ngModel)]="author.nom" #inputEditNom="ngModel" maxlength="20" minlength="3" required="required"
+                style="background: transparent;border: none;" />
+              <p>
+                <span class="bib-form-valid-error" *ngIf="inputEditNom.errors?.required && inputEditNom.touched">please enter a lastname</span>
+                <span class="bib-form-valid-error" *ngIf="inputEditNom.errors?.minlength && inputEditNom.touched">Invalid lastname minlength </span>
+                <span class="bib-form-valid-error" *ngIf="inputEditNom.errors?.maxlength && inputEditNom.touched">Invalid lastname maxlength </span>
+              </p>
+            </md-card-subtitle>
+          </md-card-header>
+          <md-card-content>
+
+          </md-card-content>
+          <md-card-actions>
+            <button md-mini-fab color="warn" style="width:25px;height:25px;position: absolute;right: 50px;top: 40px;" (click)="onRemove(author)">
+            <md-icon class="md-24" style="padding:0px">clear</md-icon>
+          </button>
+            <button 
+            [disabled]="
+            !inputEditPrenon.dirty 
+            || inputEditPrenon.errors?.required 
+            || inputEditPrenon.errors?.minlength 
+            || inputEditPrenon.errors?.maxlength 
+            ||!inputEditNom.dirty 
+            || inputEditNom.errors?.required 
+            || inputEditNom.errors?.minlength 
+            || inputEditNom.errors?.maxlength
+            "
+              md-mini-fab class="btn-success" (click)="Edit(author)" style="width:25px;height:25px;position: absolute;right: 20px;top: 40px;"> 
+            <md-icon class="md-24" style="padding:0px">edit</md-icon>
+          </button>
+          </md-card-actions>
+        </md-card>
+
+
+      </div>
+
+
+      <pagination [boundaryLinks]="true" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize" (pageChanged)="pageChanged($event)"  class="pagination-sm" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+
+    </section>
+
+  </div>
+
+
+  <div class="col-lg-4 col-lg-offset-1 bib-box-shadow">
+
+
+    {{errors|json}}
+
+    <form #add_form="ngForm" (ngSubmit)="ngSubmit(add_form)" novalidate="novalidate">
+
+      <md-input [ngModel]="inputLang" #firstname="ngModel" name="firstname" type="text" maxlength="20" minlength="3" placeholder="firstname"
+        style="width:100%" required="required"></md-input>
+      <p>
+        <span class="bib-form-valid-error" *ngIf="firstname.errors?.required && firstname.touched">please enter a firstname</span>
+        <span class="bib-form-valid-error" *ngIf="firstname.errors?.minlength && firstname.touched">Invalid firstname minlength {{add_form.form.controls.firstname._errors.minlength.requiredLength}}</span>
+        <span class="bib-form-valid-error" *ngIf="firstname.errors?.maxlength && firstname.touched">Invalid firstname maxlength {{add_form.form.controls.firstname._errors.maxlength.requiredLength}}</span>
+        <span class="bib-form-valid-error" *ngIf="error"></span>
+      </p>
+
+      <md-input [ngModel]="inputLang" #lastname="ngModel" name="lastname" type="text" maxlength="20" minlength="3" placeholder="lastname"
+        style="width:100%" required="required"></md-input>
+      <p>
+        <span class="bib-form-valid-error" *ngIf="lastname.errors?.required && lastname.touched">please enter a name</span>
+        <span class="bib-form-valid-error" *ngIf="lastname.errors?.minlength && lastname.touched">Invalid name minlength {{add_form.form.controls.lastname._errors.minlength.requiredLength}}</span>
+        <span class="bib-form-valid-error" *ngIf="lastname.errors?.maxlength && lastname.touched">Invalid name maxlength {{add_form.form.controls.lastname._errors.maxlength.requiredLength}}</span>
+        <span class="bib-form-valid-error" *ngIf="error"></span>
+      </p>
+
+
+      <button [disabled]="add_form.form.invalid" md-raised-button color="primary" class="bib-btn-midel" type="submit" style="margin: 10px;">ADD</button>
+    </form>
+  </div>
+
+
+  <p>{{response|json}}</p>
+
+</section>

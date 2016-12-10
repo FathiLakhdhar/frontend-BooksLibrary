@@ -1,0 +1,73 @@
+<p>
+  add-book works!
+</p>
+<hr/>
+
+<md-card class="demo-card demo-basic">
+  <md-toolbar color="primary">ADD BOOK</md-toolbar>
+  <md-card-content>
+    <form #add_form="ngForm" (ngSubmit)="ngSubmit(add_form)" novalidate="novalidate">
+
+      <p>{{result|json}}</p>
+      <p>{{error}}</p>
+
+
+
+      <md-input ngModel #title="ngModel" name="title" type="text" maxlength="50" minlength="3" placeholder="Title" style="width: 100%"
+        required="required"></md-input>
+      <span class="bib-form-valid-error" *ngIf="title.errors?.required && title.touched">please enter a title</span>
+      <span class="bib-form-valid-error" *ngIf="title.errors?.minlength && title.touched">Invalid title minlength {{add_form.form.controls.title._errors.minlength.requiredLength}}</span>
+      <span class="bib-form-valid-error" *ngIf="title.errors?.maxlength && title.touched">Invalid title maxlength {{add_form.form.controls.title._errors.maxlength.requiredLength}}</span>
+
+      <md-input ngModel #subtitle="ngModel" name="subtitle" type="text" placeholder="Subtitle" style="width: 100%" required="required"></md-input>
+      <span class="bib-form-valid-error" *ngIf="subtitle.errors?.required && subtitle.touched">please enter a subtitle</span>
+      <span class="bib-form-valid-error" *ngIf="subtitle.errors?.minlength && subtitle.touched">Invalid subtitle minlength {{add_form.form.controls.title._errors.minlength.requiredLength}}</span>
+      <span class="bib-form-valid-error" *ngIf="subtitle.errors?.maxlength && subtitle.touched">Invalid subtitle maxlength {{add_form.form.controls.subtitle._errors.maxlength.requiredLength}}</span>
+
+
+      <md-input ngModel #storageCode="ngModel" name="codeStorage" type="number" style="width: 100%" max="5000" min="1" placeholder="Code storage"
+        value="1" required="required"></md-input>
+      <span class="bib-form-valid-error" *ngIf="storageCode.errors?.required && storageCode.touched">please enter a storage Code</span>
+
+
+      <md-input ngModel #tome="ngModel" name="numberTome" type="number" style="width: 100%" max="30" min="0" placeholder="Number tome" value="0"
+        required="required"></md-input>
+      <span class="bib-form-valid-error" *ngIf="tome.errors?.required && tome.touched">please enter a number tome</span>
+
+      <div style="margin: 15px auto">
+        <ng-select ngModel #author="ngModel" (closed)="onSelectclosedAuthor()" name="author" [options]="DataAuteurs" multiple="true" placeholder="Author(s)" [allowClear]="true" theme="default"
+          required="required">
+        </ng-select>
+        <span class="bib-form-valid-error" *ngIf="author.errors?.required && author_touched">please enter a Author</span>
+      </div>
+
+
+      <div style="margin: 15px auto">
+        <ng-select ngModel #isbn="ngModel" (closed)="onSelectclosedIsbn()" name="isbn" [options]="DataEditions" placeholder="Edition" [allowClear]="true" theme="default" required="required">
+        </ng-select>
+        <span class="bib-form-valid-error" *ngIf="isbn.errors?.required && isbn_touched">please enter a Isbn</span>
+      
+      </div>
+
+
+      <div style="margin: 15px auto">
+        <ng-select ngModel #keywords="ngModel" (closed)="onSelectclosedKeywords()"  name="keyWords" [options]="DataKeyWords" multiple="true" placeholder="Key Words" [allowClear]="true" theme="default"
+          required="required">
+        </ng-select>
+        <span class="bib-form-valid-error" *ngIf="keywords.errors?.required && keywords_touched">please enter a Key Words</span>
+      </div>
+
+<!--
+      <div>
+        <h3>Cover Photo</h3>
+        <input ngModel #coverphoto="ngModel" type="file" name="coverphoto" ng2FileSelect [uploader]="uploader" />
+        <h3>Upload queue</h3>
+            <p>Queue length: {{ uploader?.queue?.length }}</p>
+      </div>
+-->
+
+      <input [disabled]="add_form.form.invalid" />
+      <button md-raised-button color="primary" class="bib-btn-midel" type="submit" style="margin: 10px;">ADD</button>
+    </form>
+  </md-card-content>
+</md-card>

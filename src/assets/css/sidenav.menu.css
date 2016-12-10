@@ -1,0 +1,51 @@
+
+a{
+  text-decoration: none;
+}
+ul{
+  list-style-type: none;
+}
+nav>ul{
+  padding: 0px;
+}
+nav>ul>li{
+  background-color: #fff;
+  box-shadow: 0px 0px 3px #5491bd;
+  /*padding: 12px 0px;*/
+  cursor: pointer;
+  
+}
+nav>ul>li:hover{box-shadow: 0px 0px 10px #5491bd;}
+li.bib-nav-icon{
+  position: absolute;
+      left: 5px;
+}
+
+ul.bib-menu{
+  padding: 0px 0px !important;
+  position: fixed;
+    background-color: whitesmoke;
+    padding: 10px 20px;
+    border-radius: 3px;
+    right: 30px;
+    display: block;
+}
+ul.bib-menu>li{
+  box-shadow: 0px 0px 3px #ccc;
+}
+ul.bib-menu>li:hover{
+  box-shadow: 0px 0px 10px #ccc;
+}
+ul.bib-menu>li>md-icon{
+  margin: 5px;
+}
+ul.bib-menu>li>a{
+  padding: 10px 40px;
+  vertical-align: super;
+}
+ul.bib-nav-item{
+  padding: 15px 10px ;
+}
+li.bib-nav-label{
+  margin-left: 30px;
+}

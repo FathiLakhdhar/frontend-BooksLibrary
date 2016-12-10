@@ -1,0 +1,91 @@
+<section class="container">
+  <div class="col-lg-5">
+    <h3>
+      Search
+    </h3>
+
+    <section class="row">
+
+
+      <div class="col-lg-12" *ngFor="let edition of editions3 " style="margin-bottom: 20px;">
+
+        <md-card>
+          <md-card-header>
+
+            <img md-card-avatar src="../../assets/img/Home512.png">
+            <md-card-title>
+              {{"ISBN :"|uppercase}}
+              <input type="text" [(ngModel)]="edition.isbn" #inputEditIsbn="ngModel" pattern="^[1-9][0-9]{0,9}$" required="required" style="background: transparent;border: none;"
+              />
+              <p>
+                <span class="bib-form-valid-error" *ngIf="(inputEditIsbn.errors?.pattern || inputEditIsbn.errors?.required) && inputEditIsbn.touched">please enter digit number minlength: 1, maxlength: 10</span>
+              </p>
+            </md-card-title>
+            <md-card-subtitle>
+              {{"Maison ::"|uppercase}}
+              <input type="text" [(ngModel)]="edition.maison" #inputEditmaison="ngModel" maxlength="100" minlength="3" required="required"
+                style="background: transparent;border: none;" />
+              <p>
+                <span class="bib-form-valid-error" *ngIf="inputEditmaison.errors?.required && inputEditmaison.touched">please enter a firstname</span>
+                <span class="bib-form-valid-error" *ngIf="inputEditmaison.errors?.minlength && inputEditmaison.touched">Invalid firstname minlength 3</span>
+                <span class="bib-form-valid-error" *ngIf="inputEditmaison.errors?.maxlength && inputEditmaison.touched">Invalid firstname maxlength 100</span>
+              </p>
+
+
+            </md-card-subtitle>
+          </md-card-header>
+          <md-card-content>
+            {{"pays :"|uppercase}}
+            <input type="text" [(ngModel)]="edition.pays" #inputEditPays="ngModel" maxlength="20" minlength="3" required="required" style="background: transparent;border: none;"
+            />
+            <p>
+              <span class="bib-form-valid-error" *ngIf="inputEditPays.errors?.required && inputEditPays.touched">please enter a pays</span>
+              <span class="bib-form-valid-error" *ngIf="inputEditPays.errors?.minlength && inputEditPays.touched">Invalid pays minlength </span>
+              <span class="bib-form-valid-error" *ngIf="inputEditPays.errors?.maxlength && inputEditPays.touched">Invalid pays maxlength </span>
+            </p>
+          </md-card-content>
+          <md-card-actions>
+            <button md-mini-fab color="warn" style="width:25px;height:25px;position: absolute;right: 50px;top: 40px;" (click)="onRemove(edition)">
+            <md-icon class="md-24" style="padding:0px">clear</md-icon>
+          </button>
+            <button [disabled]="
+            (!inputEditIsbn.dirty && !inputEditmaison.dirty && !inputEditPays.dirty)
+            || inputEditIsbn.errors?.required || inputEditIsbn.errors?.pattern
+             || inputEditmaison.errors?.required || inputEditmaison.errors?.minlength || inputEditmaison.errors?.maxlength
+             || inputEditPays.errors?.required || inputEditPays.errors?.minlength || inputEditPays.errors?.maxlength
+            " md-mini-fab class="btn-success" (click)="Edit(edition)" style="width:25px;height:25px;position: absolute;right: 20px;top: 40px;">
+            <md-icon class="md-24" style="padding:0px">edit</md-icon>
+          </button>
+          </md-card-actions>
+        </md-card>
+
+
+      </div>
+
+
+      <pagination [boundaryLinks]="true" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize"
+        (pageChanged)="pageChanged($event)" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+        lastText="&raquo;"></pagination>
+
+    </section>
+
+
+  </div>
+
+
+
+  <div class="col-lg-4 col-lg-offset-1 bib-box-shadow">
+    <form #searchForm="ngForm">
+      <md-input [(ngModel)]="find" name="find"></md-input>{{find}}
+      <div style="margin: 15px auto">
+        <ng-select ngModel #selectSearch="ngModel" name="searchBy" [options]="options" placeholder="Search By" [allowClear]="canClearSelect"
+          theme="default">
+        </ng-select>
+
+      </div>
+
+      <button [disabled]="searchForm.form.invalid" md-raised-button color="primary" class="bib-btn-midel" type="submit" style="margin: 10px;">Search</button>
+    </form>
+
+  </div>
+</section>

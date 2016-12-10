@@ -1,0 +1,116 @@
+<section class="container">
+  <div class="col-lg-5">
+    <h3>
+      Editions
+    </h3>
+
+
+
+    <section class="row">
+
+
+      <div class="col-lg-12" *ngFor="let edition of editions3 " style="margin-bottom: 20px;">
+
+        <md-card>
+          <md-card-header>
+
+            <img md-card-avatar src="../../assets/img/Home512.png">
+            <md-card-title>
+              {{"ISBN :"|uppercase}}
+              <input type="text" [(ngModel)]="edition.isbn" #inputEditIsbn="ngModel" pattern="^[1-9][0-9]{0,9}$" required="required" style="background: transparent;border: none;"
+              />
+              <p>
+                <span class="bib-form-valid-error" *ngIf="(inputEditIsbn.errors?.pattern || inputEditIsbn.errors?.required) && inputEditIsbn.touched">please enter digit number minlength: 1, maxlength: 10</span>
+              </p>
+            </md-card-title>
+            <md-card-subtitle>
+              {{"Maison ::"|uppercase}}
+              <input type="text" [(ngModel)]="edition.maison" #inputEditmaison="ngModel" maxlength="100" minlength="3" required="required"
+                style="background: transparent;border: none;" />
+              <p>
+                <span class="bib-form-valid-error" *ngIf="inputEditmaison.errors?.required && inputEditmaison.touched">please enter a firstname</span>
+                <span class="bib-form-valid-error" *ngIf="inputEditmaison.errors?.minlength && inputEditmaison.touched">Invalid firstname minlength 3</span>
+                <span class="bib-form-valid-error" *ngIf="inputEditmaison.errors?.maxlength && inputEditmaison.touched">Invalid firstname maxlength 100</span>
+              </p>
+
+
+            </md-card-subtitle>
+          </md-card-header>
+          <md-card-content>
+            {{"pays :"|uppercase}}
+            <input type="text" [(ngModel)]="edition.pays" #inputEditPays="ngModel" maxlength="20" minlength="3" required="required" style="background: transparent;border: none;"
+            />
+            <p>
+              <span class="bib-form-valid-error" *ngIf="inputEditPays.errors?.required && inputEditPays.touched">please enter a pays</span>
+              <span class="bib-form-valid-error" *ngIf="inputEditPays.errors?.minlength && inputEditPays.touched">Invalid pays minlength </span>
+              <span class="bib-form-valid-error" *ngIf="inputEditPays.errors?.maxlength && inputEditPays.touched">Invalid pays maxlength </span>
+            </p>
+          </md-card-content>
+          <md-card-actions>
+            <button md-mini-fab color="warn" style="width:25px;height:25px;position: absolute;right: 50px;top: 40px;" (click)="onRemove(edition)">
+            <md-icon class="md-24" style="padding:0px">clear</md-icon>
+          </button>
+            <button [disabled]="
+            (!inputEditIsbn.dirty && !inputEditmaison.dirty && !inputEditPays.dirty)
+            || inputEditIsbn.errors?.required || inputEditIsbn.errors?.pattern
+             || inputEditmaison.errors?.required || inputEditmaison.errors?.minlength || inputEditmaison.errors?.maxlength
+             || inputEditPays.errors?.required || inputEditPays.errors?.minlength || inputEditPays.errors?.maxlength
+            " md-mini-fab class="btn-success" (click)="Edit(edition)" style="width:25px;height:25px;position: absolute;right: 20px;top: 40px;">
+            <md-icon class="md-24" style="padding:0px">edit</md-icon>
+          </button>
+          </md-card-actions>
+        </md-card>
+
+
+      </div>
+
+
+      <pagination [boundaryLinks]="true" [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize"
+        (pageChanged)="pageChanged($event)" class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+        lastText="&raquo;"></pagination>
+
+    </section>
+
+  </div>
+
+
+  <div class="col-lg-4 col-lg-offset-1 bib-box-shadow">
+
+
+    {{errors|json}}
+
+    <form #add_form="ngForm" (ngSubmit)="ngSubmit(add_form)" novalidate="novalidate">
+
+
+      <md-input ngModel #isbn="ngModel" name="isbn" type="text" placeholder="Isbn" pattern="^[1-9][0-9]{0,9}$" style="width:100%"
+        required="required"></md-input>
+      <p>
+        <span class="bib-form-valid-error" *ngIf="(isbn.errors?.pattern || isbn.errors?.required) && isbn.touched">please enter digit number minlength: 1, maxlength: 10</span>
+        <span class="bib-form-valid-error" *ngIf="error"></span>
+      </p>
+
+      <md-input ngModel #maison="ngModel" name="maison" type="text" maxlength="100" minlength="3" placeholder="Maison" style="width:100%"
+        required="required"></md-input>
+      <p>
+        <span class="bib-form-valid-error" *ngIf="maison.errors?.required && maison.touched">please enter a maison</span>
+        <span class="bib-form-valid-error" *ngIf="maison.errors?.minlength && maison.touched">Invalid maison minlength {{add_form.form.controls.maison._errors.minlength.requiredLength}}</span>
+        <span class="bib-form-valid-error" *ngIf="maison.errors?.maxlength && maison.touched">Invalid maison maxlength {{add_form.form.controls.maison._errors.maxlength.requiredLength}}</span>
+        <span class="bib-form-valid-error" *ngIf="error"></span>
+      </p>
+
+      <div style="margin: 15px auto">
+        <ng-select ngModel #pays="ngModel" name="pays" [options]="options" (closed)="onSelectclosed($event)" placeholder="Pays" [allowClear]="canClearSelect"
+          theme="default" required="required">
+        </ng-select>
+        <span class="bib-form-valid-error" *ngIf="pays.errors?.required && selectTouched">please enter a pays</span>
+      </div>
+
+
+      <button [disabled]="add_form.form.invalid" md-raised-button color="primary" class="bib-btn-midel" type="submit" style="margin: 10px;">ADD</button>
+    </form>
+  </div>
+
+
+  <p>{{response|json}}</p>
+
+</section>

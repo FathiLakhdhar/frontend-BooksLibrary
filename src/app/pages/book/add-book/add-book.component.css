@@ -1,0 +1,10 @@
+md-card{
+    width: 30%;
+    margin: 10px auto;
+}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice{
+    background-color:#4e8dba !important;
+    color: #fff;
+}
